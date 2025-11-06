@@ -4,7 +4,13 @@
 
 ### Major features
 
-- Added support for Raycast Browser Extension to get current URL
+- **Separated Create Bookmark and Create Note commands**: Split bookmark creation into two dedicated commands for better UX
+  - `Create Bookmark` now focuses exclusively on URL bookmarks
+  - New `Create Note` command for text-only notes
+- **Browser Extension Integration**: Automatically prefill URL field from active browser tab
+  - Uses Raycast Browser Extension API to fetch current tab URL
+  - New preference to toggle automatic URL prefilling (enabled by default)
+  - Gracefully handles cases where browser extension is unavailable
 
 ### Chores
 

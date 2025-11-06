@@ -25,6 +25,7 @@ interface BaseConfig {
   linkMainAction: linkMainActionType;
   textMainAction: textMainActionType;
   createBookmarkType: createBookmarkType;
+  prefillUrlFromBrowser: boolean;
 }
 
 export interface Preferences extends Partial<DisplayOptions> {
@@ -35,6 +36,7 @@ export interface Preferences extends Partial<DisplayOptions> {
   linkMainAction?: linkMainActionType;
   textMainAction?: textMainActionType;
   createBookmarkType?: createBookmarkType;
+  prefillUrlFromBrowser?: boolean;
 }
 
 export interface Config extends BaseConfig, DisplayOptions {}
