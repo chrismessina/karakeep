@@ -140,7 +140,7 @@ export default function Lists() {
           toast.style = Toast.Style.Success;
           toast.message = t("common.deleteSuccess");
           revalidate();
-        } catch (error) {
+        } catch {
           toast.style = Toast.Style.Failure;
           toast.message = t("common.deleteFailed");
         }

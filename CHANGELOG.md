@@ -1,5 +1,16 @@
 # Karakeep Changelog
 
+## [2.1.0] {PR_MERGE_DATE}
+
+### Major features
+
+- Added support for Raycast Browser Extension to get current URL
+
+### Chores
+
+- Updated dependencies
+- Updated ESLint configuration
+
 ## [2.0.1] - 2025-06-28
 
 ### Major Changes

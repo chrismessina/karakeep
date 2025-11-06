@@ -52,7 +52,7 @@ export default function Tags() {
       toast.message = "Tag deleted successfully";
       toast.style = Toast.Style.Success;
       await revalidate();
-    } catch (error) {
+    } catch {
       toast.title = "Delete tag";
       toast.message = "Tag deletion failed";
       toast.style = Toast.Style.Failure;

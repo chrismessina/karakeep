@@ -17,7 +17,7 @@ export default function BookmarksList() {
     try {
       await revalidate();
       toast.title = t("bookmarksRefreshed");
-    } catch (error) {
+    } catch {
       toast.style = Toast.Style.Failure;
       toast.title = t("refreshError");
     }
