@@ -46,19 +46,11 @@ export function useGetAllBookmarks({ favourited, archived }: GetBookmarksParams 
   const shouldResetCache = useCallback((newBookmarks: Bookmark[], cachedBookmarks: Bookmark[]) => {
     if (cachedBookmarks.length === 0) return false;
 
-    const newIds = new Set(newBookmarks.map((b) => b.id));
-    const cachedIds = new Set(cachedBookmarks.slice(0, newBookmarks.length).map((b) => b.id));
-
-    if (newIds.size !== cachedIds.size) return true;
-
-    for (const id of newIds) {
-      if (!cachedIds.has(id)) return true;
-    }
-    for (const id of cachedIds) {
-      if (!newIds.has(id)) return true;
-    }
-
     const cachedFirstPage = cachedBookmarks.slice(0, newBookmarks.length);
+
+    // Check if length or order changed
+    if (newBookmarks.length !== cachedFirstPage.length) return true;
+
     return !newBookmarks.every((bookmark, index) => bookmark.id === cachedFirstPage[index]?.id);
   }, []);
 
@@ -74,7 +66,7 @@ export function useGetAllBookmarks({ favourited, archived }: GetBookmarksParams 
         };
       }
 
-      if (!state.cursor) {
+      if (!prev.cursor) {
         const needsReset = shouldResetCache(data.bookmarks, prev.allBookmarks);
         if (needsReset) {
           return {
@@ -85,11 +77,11 @@ export function useGetAllBookmarks({ favourited, archived }: GetBookmarksParams 
         }
       }
 
-      if (state.cursor) {
+      if (prev.cursor) {
         return {
           allBookmarks: removeDuplicates([...prev.allBookmarks, ...data.bookmarks]),
           isInitialLoad: false,
-          cursor: state.cursor,
+          cursor: prev.cursor,
         };
       }
 

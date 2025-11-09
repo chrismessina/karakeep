@@ -21,6 +21,17 @@ export function useGetListsBookmarks(listId: string) {
     [],
   );
 
+  const shouldResetCache = useCallback((newBookmarks: Bookmark[], cachedBookmarks: Bookmark[]) => {
+    if (cachedBookmarks.length === 0) return false;
+
+    const cachedFirstPage = cachedBookmarks.slice(0, newBookmarks.length);
+
+    // Check if length or order changed
+    if (newBookmarks.length !== cachedFirstPage.length) return true;
+
+    return !newBookmarks.every((bookmark, index) => bookmark.id === cachedFirstPage[index]?.id);
+  }, []);
+
   const { isLoading, data, error, revalidate } = useCachedPromise(
     async (listId, cursor) => {
       const result = (await fetchGetSingleListBookmarks(
@@ -53,7 +64,7 @@ export function useGetListsBookmarks(listId: string) {
       setState((prev) => {
         if (prev.isInitialLoad) {
           return {
-            allBookmarks: removeDuplicates(data.bookmarks || []),
+            allBookmarks: data.bookmarks || [],
             isInitialLoad: false,
             cursor: data.nextCursor || null,
           };
@@ -62,39 +73,25 @@ export function useGetListsBookmarks(listId: string) {
         const needsReset = shouldResetCache(data.bookmarks || [], prev.allBookmarks);
         if (needsReset) {
           return {
-            allBookmarks: removeDuplicates(data.bookmarks || []),
+            allBookmarks: data.bookmarks || [],
             isInitialLoad: false,
             cursor: data.nextCursor || null,
           };
         }
 
-        return {
-          allBookmarks: removeDuplicates([...prev.allBookmarks, ...(data.bookmarks || [])]),
-          isInitialLoad: false,
-          cursor: data.nextCursor || null,
-        };
+        // Only deduplicate when paginating
+        if (prev.cursor) {
+          return {
+            allBookmarks: removeDuplicates([...prev.allBookmarks, ...(data.bookmarks || [])]),
+            isInitialLoad: false,
+            cursor: data.nextCursor || null,
+          };
+        }
+
+        return prev;
       });
     }
-  }, [data, removeDuplicates]);
-
-  const shouldResetCache = useCallback((newBookmarks: Bookmark[], cachedBookmarks: Bookmark[]) => {
-    if (cachedBookmarks.length === 0) return false;
-
-    const newIds = new Set(newBookmarks.map((b) => b.id));
-    const cachedIds = new Set(cachedBookmarks.slice(0, newBookmarks.length).map((b) => b.id));
-
-    if (newIds.size !== cachedIds.size) return true;
-
-    for (const id of newIds) {
-      if (!cachedIds.has(id)) return true;
-    }
-    for (const id of cachedIds) {
-      if (!newIds.has(id)) return true;
-    }
-
-    const cachedFirstPage = cachedBookmarks.slice(0, newBookmarks.length);
-    return !newBookmarks.every((bookmark, index) => bookmark.id === cachedFirstPage[index]?.id);
-  }, []);
+  }, [data, removeDuplicates, shouldResetCache]);
 
   const loadNextPage = useCallback(() => {
     if (!data?.nextCursor || isLoading || !data.hasMore) return;

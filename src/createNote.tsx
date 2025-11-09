@@ -107,11 +107,7 @@ export default function CreateNoteView() {
         }}
       />
 
-      <Form.Dropdown
-        id="list"
-        title={t("bookmark.list")}
-        value={selectedList}
-        onChange={setSelectedList}>
+      <Form.Dropdown id="list" title={t("bookmark.list")} value={selectedList} onChange={setSelectedList}>
         <Form.Dropdown.Item value="" title={t("bookmark.defaultListPlaceholder")} />
         {lists.map((list) => (
           <Form.Dropdown.Item key={list.id} value={list.id} title={list.name} />
