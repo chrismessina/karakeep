@@ -2,7 +2,7 @@
 
 ## [2.1.0] {PR_MERGE_DATE}
 
-### Major features
+### Big changes
 
 - **Separated Create Bookmark and Create Note commands**: Split bookmark creation into two dedicated commands for better UX
   - `Create Bookmark` now focuses exclusively on URL bookmarks
