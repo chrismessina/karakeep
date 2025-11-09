@@ -390,11 +390,13 @@ function BookmarkActions({
                 url={bookmark.content.url}
                 title={t("bookmark.actions.openLink")}
                 shortcut={{ modifiers: ["cmd"], key: "o" }}
+                onOpen={() => onVisit?.(bookmark)}
               />
               <Action.CopyToClipboard
                 content={bookmark.content.url}
                 title={t("bookmark.actions.copyLink")}
                 shortcut={{ modifiers: ["cmd"], key: "c" }}
+                onCopy={() => onVisit?.(bookmark)}
               />
             </>
           )}
@@ -405,6 +407,7 @@ function BookmarkActions({
               content={bookmark.content.text}
               title={t("bookmark.actions.copyContent")}
               shortcut={{ modifiers: ["cmd"], key: "c" }}
+              onCopy={() => onVisit?.(bookmark)}
             />
           )}
         {bookmark.content.type === "asset" &&
