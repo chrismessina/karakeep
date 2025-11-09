@@ -22,18 +22,16 @@ export default function Tags() {
       const {
         bookmarks,
         isLoading: isLoadingBookmarks,
-        hasMore,
         revalidate: revalidateBookmarks,
-        loadNextPage,
+        pagination,
       } = useGetTagsBookmarks(tagId);
 
       return (
         <BookmarkList
           bookmarks={bookmarks}
-          hasMore={hasMore}
           isLoading={isLoadingBookmarks}
           onRefresh={revalidateBookmarks}
-          loadMore={loadNextPage}
+          pagination={pagination}
           searchBarPlaceholder={`In ${tagName} tag search...`}
           emptyViewTitle="No bookmarks found"
           emptyViewDescription="No bookmarks in this tag yet"

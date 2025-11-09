@@ -1,10 +1,11 @@
-import { Action, ActionPanel, BrowserExtension, Form, showToast, Toast, useNavigation } from "@raycast/api";
+import { Action, ActionPanel, Form, showToast, Toast, useNavigation } from "@raycast/api";
 import { useForm } from "@raycast/utils";
 import { useEffect, useState } from "react";
 import { fetchAddBookmarkToList, fetchCreateBookmark } from "./apis";
 import { useGetAllLists } from "./hooks/useGetAllLists";
 import { useTranslation } from "./hooks/useTranslation";
 import { useConfig } from "./hooks/useConfig";
+import { getBrowserLink } from "./hooks/useBrowserLink";
 import { Bookmark } from "./types";
 import { validUrl } from "./utils/url";
 
@@ -69,10 +70,9 @@ export default function CreateBookmarkView() {
 
       setIsLoadingTab(true);
       try {
-        const tabs = await BrowserExtension.getTabs();
-        const activeTab = tabs.find((tab) => tab.active);
-        if (activeTab?.url) {
-          setValue("url", activeTab.url);
+        const url = await getBrowserLink();
+        if (url) {
+          setValue("url", url);
         }
       } catch (error) {
         // Browser extension not available or no permission

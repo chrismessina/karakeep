@@ -11,11 +11,18 @@
   - Uses Raycast Browser Extension API to fetch current tab URL
   - New preference to toggle automatic URL prefilling (enabled by default)
   - Gracefully handles cases where browser extension is unavailable
+- **Raycast API Optimization**: Migrated to native Raycast pagination and added frecency sorting
+  - Replaced manual pagination state management with Raycast's native `useCachedPromise` pagination
+  - Eliminated rendering loop bug caused by stale closures
+  - Added intelligent bookmark sorting with `useFrecencySorting` - frequently accessed bookmarks float to top
+  - Tracks bookmark visits on "open in browser" and "copy to clipboard" actions
+  - **Code reduction**: 65% fewer lines across pagination hooks (384 → 136 lines)
 
 ### Chores
 
 - Updated dependencies
 - Updated ESLint configuration
+- Refactored pagination hooks to use Raycast utilities
 
 ## [2.0.1] - 2025-06-28
 

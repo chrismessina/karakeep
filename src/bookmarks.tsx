@@ -1,4 +1,5 @@
 import { Icon, List, showToast, Toast } from "@raycast/api";
+import { useFrecencySorting } from "@raycast/utils";
 import { useCallback } from "react";
 import { BookmarkList } from "./components/BookmarkList";
 import { useGetAllBookmarks } from "./hooks/useGetAllBookmarks";
@@ -6,7 +7,10 @@ import { useTranslation } from "./hooks/useTranslation";
 
 export default function BookmarksList() {
   const { t } = useTranslation();
-  const { isLoading, bookmarks, hasMore, revalidate, loadNextPage } = useGetAllBookmarks();
+  const { isLoading, bookmarks, revalidate, pagination } = useGetAllBookmarks();
+  const { data: sortedBookmarks, visitItem } = useFrecencySorting(bookmarks, {
+    namespace: "bookmarks",
+  });
 
   const handleRefresh = useCallback(async () => {
     const toast = await showToast({
@@ -33,12 +37,12 @@ export default function BookmarksList() {
 
   return (
     <BookmarkList
-      bookmarks={bookmarks}
-      hasMore={hasMore}
+      bookmarks={sortedBookmarks}
       isLoading={isLoading}
       onRefresh={handleRefresh}
-      loadMore={loadNextPage}
+      pagination={pagination}
       searchBarPlaceholder={t("searchBookmarks")}
+      onBookmarkVisit={visitItem}
     />
   );
 }
