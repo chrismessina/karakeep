@@ -5,6 +5,7 @@
     "types": ["node", "react", "react-dom"],
     "lib": ["ES2023"],
     "module": "commonjs",
+    "moduleResolution": "node",
     "target": "ES2022",
     "strict": true,
     "isolatedModules": true,
