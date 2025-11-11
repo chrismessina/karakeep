@@ -49,6 +49,13 @@
       "subtitle": "Karakeep",
       "description": "Create a new note",
       "mode": "view"
+    },
+    {
+      "name": "quickBookmark",
+      "title": "Quick Bookmark",
+      "subtitle": "Karakeep",
+      "description": "Quickly bookmark the current browser tab",
+      "mode": "no-view"
     }
   ],
   "dependencies": {
@@ -151,24 +158,6 @@
         {
           "title": "Edit",
           "value": "edit"
-        }
-      ]
-    },
-    {
-      "name": "createBookmarkType",
-      "type": "dropdown",
-      "label": "default create bookmark type",
-      "title": "Default Create Bookmark Type",
-      "required": false,
-      "description": "Select the default type when you create a new bookmark",
-      "data": [
-        {
-          "title": "Plain Text",
-          "value": "text"
-        },
-        {
-          "title": "URL Link",
-          "value": "link"
         }
       ]
     },

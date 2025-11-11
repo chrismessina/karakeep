@@ -2,9 +2,6 @@
 export type linkMainActionType = "openInBrowser" | "viewDetail" | "edit" | "copy";
 export type textMainActionType = "viewDetail" | "edit" | "copy";
 
-// Create bookmark types
-export type createBookmarkType = "link" | "text";
-
 // Common display preferences for internal use
 interface DisplayOptions {
   displayBookmarkPreview: boolean;
@@ -24,7 +21,6 @@ interface BaseConfig {
   showWebsitePreview: boolean;
   linkMainAction: linkMainActionType;
   textMainAction: textMainActionType;
-  createBookmarkType: createBookmarkType;
   prefillUrlFromBrowser: boolean;
 }
 
@@ -35,7 +31,6 @@ export interface Preferences extends Partial<DisplayOptions> {
   showWebsitePreview: boolean;
   linkMainAction?: linkMainActionType;
   textMainAction?: textMainActionType;
-  createBookmarkType?: createBookmarkType;
   prefillUrlFromBrowser?: boolean;
 }
 

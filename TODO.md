@@ -6,7 +6,12 @@
 - [x] Add support for Raycast Browser Extension to get current URL
 - [x] Add character counter for note content
 - [x] Add draft saving for note content
+- [x] Add preference to enable/disable automatic pre-fill URL from Raycast Browser Extension
+- [x] Add no-view command "Quick Bookmark" to optimistically bookmark URL (e.g. from hotkey); store in "Quick Bookmarks" list
 - [ ] Add ability to manage lists
+  - [ ] Add list creation
+  - [ ] Add list deletion
+  - [ ] Add list renaming
 - [ ] Add support for Raycast AI Tools
 
 ## Raycast API Optimization (Native Pagination & Frecency Sorting)
